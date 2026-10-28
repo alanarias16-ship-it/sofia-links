@@ -127,25 +127,13 @@ html.age-open{overflow:hidden}
   if(cached){apply(cached);return;}
   function save(o){try{sessionStorage.setItem('geo3',JSON.stringify(o))}catch(e){}apply(o)}
   function j(u){return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()})}
-  // 1) GPS del móvil (preciso) → ciudad por geocodificación inversa; 2) si no, IP (aproximado)
-  function byIp(){
-    j('https://ipwho.is/?fields=success,city,region,country_code').then(function(d){
-      if(d&&d.success&&d.city) save({city:d.city,region:d.region||'',cc:d.country_code||'',mi:miles()}); else throw 0;
-    }).catch(function(){ j('https://get.geojs.io/v1/ip/geo.json').then(function(d){ if(d&&d.city) save({city:d.city,region:d.region||'',cc:d.country_code||'',mi:miles()}) }).catch(function(){}) });
-  }
-  function byGps(){
-    if(!navigator.geolocation) return byIp();
-    var done=false;
-    navigator.geolocation.getCurrentPosition(function(p){
-      done=true; var la=p.coords.latitude, lo=p.coords.longitude;
-      j('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&lat='+la+'&lon='+lo).then(function(d){
-        var a=d.address||{}; var city=a.city||a.town||a.village||a.municipality||a.county||a.state_district||a.state;
-        if(city) save({city:city,region:a.state||'',cc:(a.country_code||'').toUpperCase(),mi:(Math.random()*2.8+0.6).toFixed(1)}); else byIp();
-      }).catch(byIp);
-    },function(){ if(!done) byIp() },{enableHighAccuracy:false,timeout:6000,maximumAge:600000});
-    setTimeout(function(){ if(!done) byIp() },7000);
-  }
-  byGps();
+  // Cloudflare (geo de la propia red, la más fiable) → ipwho → geojs. Sin pedir permiso de ubicación.
+  function ok(d){return d&&d.city}
+  j('/__geo').then(function(d){ if(ok(d)) save({city:d.city,region:d.region||'',cc:d.cc||'',mi:miles()}); else throw 0; }).catch(function(){
+    j('https://ipwho.is/?fields=success,city,region,country_code').then(function(d){ if(d&&d.success&&d.city) save({city:d.city,region:d.region||'',cc:d.country_code||'',mi:miles()}); else throw 0; }).catch(function(){
+      j('https://get.geojs.io/v1/ip/geo.json').then(function(d){ if(ok(d)) save({city:d.city,region:d.region||'',cc:d.country_code||'',mi:miles()}) }).catch(function(){});
+    });
+  });
 })();
 </script>
 </body>
