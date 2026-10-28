@@ -83,10 +83,12 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
 .age button:active{background:#3b96d6}
 html.age-open{overflow:hidden}
 </style>
+<script>(function(){var l=(location.pathname.split('/').filter(Boolean)[0]||'bio');function hit(e){try{navigator.sendBeacon?navigator.sendBeacon('/__hit?e='+e+'&l='+encodeURIComponent(l)):fetch('/__hit?e='+e+'&l='+encodeURIComponent(l),{keepalive:true})}catch(x){}}
+window.__hit=hit;hit('view');document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a.btn.main');if(a)hit('click')},true);})();</script>
 </head>
 <body>
 <div class="age" id="age"><div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h2>Age Restricted</h2><p>This platform is restricted to 18+ users.<br>Confirm your age to continue.</p><button id="ageOk">YES, I'M 18+</button></div></div>
-<script>(function(){var ok=false;try{ok=localStorage.getItem('age_ok')==='1'}catch(e){}var a=document.getElementById('age');if(ok){a.remove()}else{document.documentElement.classList.add('age-open');document.getElementById('ageOk').onclick=function(){try{localStorage.setItem('age_ok','1')}catch(e){}a.remove();document.documentElement.classList.remove('age-open')}}})();</script>
+<script>(function(){var ok=false;try{ok=localStorage.getItem('age_ok')==='1'}catch(e){}var a=document.getElementById('age');if(ok){a.remove()}else{document.documentElement.classList.add('age-open');document.getElementById('ageOk').onclick=function(){try{window.__hit('gate')}catch(e){}try{localStorage.setItem('age_ok','1')}catch(e){}a.remove();document.documentElement.classList.remove('age-open')}}})();</script>
 <main class="wrap">
   <div class="banner" id="banner"><img src="../img/p01_banner.webp?v=3d3e7f66" alt="" fetchpriority="high" decoding="async"><div class="stars"></div></div>
   <header class="head">
