@@ -112,7 +112,7 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
     if(!o||!o.city) return;
     var base=tag.getAttribute('data-base'), reg=(o.cc==='US'&&o.region)?o.region:o.city;
     tag.textContent=base.replace(/\s*·\s*Texas\s*$/,'')+' · '+reg;
-    txt.textContent=o.city+(o.cc==='US'&&o.region?', '+o.region:'')+' · '+o.mi+' miles away from you';
+    txt.textContent=o.city+(o.cc==='US'&&o.region?', '+o.region:'')+' · '+o.mi+' miles away';
     near.hidden=false;
   }
   var cached=null; try{cached=JSON.parse(sessionStorage.getItem('geo2')||'null')}catch(e){}
