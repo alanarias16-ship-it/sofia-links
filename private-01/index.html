@@ -71,9 +71,20 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
 .foot{margin-top:34px;text-align:center;color:#7a5566;font-size:11px;letter-spacing:.6px;text-transform:uppercase}
 .foot span{color:var(--blood)}
 @media (min-width:700px){.wrap{margin-top:28px;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);background:var(--bg)}.banner{height:320px}}
+.age{position:fixed;inset:0;z-index:100;background:#f6f7f9;display:flex;align-items:center;justify-content:center;padding:24px}
+.age .card{background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.12);padding:36px 28px 28px;max-width:360px;width:100%;text-align:center;font-family:Inter,system-ui,sans-serif}
+.age .ico{width:64px;height:64px;border-radius:50%;background:#eaf4fd;display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.age .ico svg{width:28px;height:28px;stroke:#4ea8e8;fill:none;stroke-width:2}
+.age h2{font-size:22px;font-weight:700;color:#111;margin:0 0 12px}
+.age p{color:#7b8591;font-size:15px;line-height:1.5;margin:0 0 26px}
+.age button{width:100%;height:52px;border:0;border-radius:999px;background:#4ea8e8;color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.age button:active{background:#3b96d6}
+html.age-open{overflow:hidden}
 </style>
 </head>
 <body>
+<div class="age" id="age"><div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h2>Age Restricted</h2><p>This platform is restricted to 18+ users.<br>Confirm your age to continue.</p><button id="ageOk">YES, I'M 18+</button></div></div>
+<script>(function(){var ok=false;try{ok=localStorage.getItem('age_ok')==='1'}catch(e){}var a=document.getElementById('age');if(ok){a.remove()}else{document.documentElement.classList.add('age-open');document.getElementById('ageOk').onclick=function(){try{localStorage.setItem('age_ok','1')}catch(e){}a.remove();document.documentElement.classList.remove('age-open')}}})();</script>
 <main class="wrap">
   <div class="banner" id="banner"><img src="../img/p01_banner.jpg?v=27c91f5f" alt=""><div class="stars"></div></div>
   <header class="head">
