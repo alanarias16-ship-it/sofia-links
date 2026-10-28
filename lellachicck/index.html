@@ -37,6 +37,7 @@ h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:38px
 h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;height:20px}
 .handle{color:var(--muted);font-size:14px;margin-top:4px;letter-spacing:.3px}
 .tag{margin-top:12px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:21px;color:var(--bone)}
+.near{margin-top:6px;font-size:13px;color:var(--bone);letter-spacing:.2px;opacity:.9}
 .bio{margin:10px auto 0;max-width:340px;color:var(--muted);font-size:14.5px;line-height:1.5}
 .divider{display:flex;align-items:center;gap:12px;margin:24px 24px 18px;color:#7a5566}
 .divider:before,.divider:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#7a5566 40%,#7a5566 60%,transparent)}
@@ -73,7 +74,8 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
     <div class="avatar"><img src="../img/p05_profile.jpg" alt="Sophia Pearl"></div>
     <h1>Sophia Pearl<svg class="v" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.3 2 3-.5 1 2.9 2.8 1.2-.6 3 2 2.3-2 2.3.6 3-2.8 1.2-1 2.9-3-.5-2.3 2-2.3-2-3 .5-1-2.9L2.9 18.7l.6-3L1.5 13.4l2-2.3-.6-3L5.7 6.9l1-2.9 3 .5z" fill="#e2245a"/><path d="M8.2 12.3l2.5 2.5 5-5" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></h1>
     <div class="handle">@lellachicck</div>
-    <div class="tag">your favorite goth cowgirl 🤠🔥 · Texas</div>
+    <div class="tag" id="tag" data-base="your favorite goth cowgirl 🤠🔥 · Texas">your favorite goth cowgirl 🤠🔥 · Texas</div>
+    <div class="near" id="near" hidden>📍 <span id="nearTxt"></span></div>
     <p class="bio">black lipstick, leather &amp; no rules. what i can’t show on instagram is waiting for you below 👇</p>
   </header>
 
@@ -94,5 +96,26 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
 
   <footer class="foot">18+ only <span>✦</span> all rights reserved</footer>
 </main>
+<script>
+(function(){
+  var tag=document.getElementById('tag'),near=document.getElementById('near'),txt=document.getElementById('nearTxt');
+  function apply(city,region){
+    if(!city) return;
+    var base=tag.getAttribute('data-base');
+    tag.textContent=base.replace(/\s*·\s*Texas\s*$/,'')+' · '+(region||city);
+    txt.textContent='just moved near '+city+' 👀';
+    near.hidden=false;
+  }
+  try{var c=sessionStorage.getItem('geo');if(c){var o=JSON.parse(c);apply(o.c,o.r);return;}}catch(e){}
+  function save(c,r){try{sessionStorage.setItem('geo',JSON.stringify({c:c,r:r}))}catch(e){}apply(c,r)}
+  fetch('https://ipwho.is/?fields=success,city,region,country_code',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+    if(d&&d.success&&d.city){save(d.city,d.country_code==='US'?d.region:d.city);}else{throw 0}
+  }).catch(function(){
+    fetch('https://ipapi.co/json/',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+      if(d&&d.city){save(d.city,d.country_code==='US'?d.region:d.city)}
+    }).catch(function(){});
+  });
+})();
+</script>
 </body>
 </html>
