@@ -52,11 +52,11 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:58px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;letter-spacing:.2px;
   transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;position:relative;overflow:hidden}
 .btn:active{transform:scale(.985)}
-.btn.main{color:#fff;background:linear-gradient(180deg,#a78bfa,var(--blood) 55%,var(--blood2));border:1px solid #c4b5fd;
-  box-shadow:0 10px 30px rgba(139,92,246,.5),inset 0 1px 0 rgba(255,255,255,.25);animation:pulse 2.6s ease-in-out infinite}
+.btn.main{color:#fff;background:linear-gradient(180deg,#ff5aa6,#ff2d8a 55%,#c4007a);border:1px solid #ff8cc4;
+  box-shadow:0 10px 30px rgba(255,45,138,.5),inset 0 1px 0 rgba(255,255,255,.25);animation:pulse 2.6s ease-in-out infinite}
 .btn.main:before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
 @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
-@keyframes pulse{0%,100%{box-shadow:0 10px 30px rgba(139,92,246,.5),inset 0 1px 0 rgba(255,255,255,.25)}50%{box-shadow:0 10px 42px rgba(139,92,246,.85),inset 0 1px 0 rgba(255,255,255,.25)}}
+@keyframes pulse{0%,100%{box-shadow:0 10px 30px rgba(255,45,138,.5),inset 0 1px 0 rgba(255,255,255,.25)}50%{box-shadow:0 10px 42px rgba(255,45,138,.85),inset 0 1px 0 rgba(255,255,255,.25)}}
 .btn.ghost{color:var(--ink);background:rgba(255,255,255,.04);border:1px solid rgba(233,223,207,.22);backdrop-filter:blur(6px)}
 .btn.ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(233,223,207,.4)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 24px;margin-top:22px}
