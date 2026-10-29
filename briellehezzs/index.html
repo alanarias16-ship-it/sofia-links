@@ -37,7 +37,7 @@ h1{text-shadow:0 2px 12px rgba(9,9,10,.9)}
 .avatar{width:172px;height:172px;border-radius:50%;margin:0 auto;position:relative;box-shadow:0 0 0 1.5px rgba(196,181,253,.6),0 0 18px 5px rgba(168,85,247,.34),0 0 36px 10px rgba(168,85,247,.16),0 10px 30px rgba(0,0,0,.5)}
 .avatar:before{display:none}
 .avatar:after{display:none}
-.avatar .whip{position:absolute;width:245.5px;height:auto;left:-14.4px;top:-18.1px;max-width:none;pointer-events:none;z-index:3;filter:drop-shadow(3px 6px 5px rgba(0,0,0,.6)) drop-shadow(0 1px 1px rgba(0,0,0,.45))}
+.avatar .whip{position:absolute;width:142.73%;height:auto;left:-8.37%;top:-10.52%;max-width:none;pointer-events:none;z-index:3;filter:drop-shadow(3px 6px 5px rgba(0,0,0,.6)) drop-shadow(0 1px 1px rgba(0,0,0,.45))}
 .avatar img.pic{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;position:relative;z-index:2}
 h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:38px;letter-spacing:.5px;margin-top:16px;line-height:1.05}
 h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;height:20px}
@@ -82,6 +82,15 @@ h1 .v{display:inline-block;vertical-align:middle;margin-left:6px;width:20px;heig
 .age button{width:100%;height:52px;border:0;border-radius:999px;background:#4ea8e8;color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;cursor:pointer}
 .age button:active{background:#3b96d6}
 html.age-open{overflow:hidden}
+
+html,body{height:100%;overflow:hidden;overscroll-behavior:none;touch-action:manipulation}
+body{position:fixed;inset:0;width:100%}
+.wrap{height:100dvh;padding-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.banner{height:clamp(170px,38dvh,320px)!important;flex:0 0 auto}
+.head{margin-top:calc(-1 * clamp(70px,11dvh,96px))}
+.avatar{width:clamp(130px,22dvh,172px)!important;height:clamp(130px,22dvh,172px)!important}
+@media (max-height:640px){h1{font-size:32px;margin-top:10px}.tag{margin-top:6px;font-size:19px}.near{margin-top:10px}.divider{margin:16px 24px 12px}}
+@media (max-width:410px){.near{font-size:12.5px;padding:7px 12px;white-space:nowrap}}
 </style>
 <script>(function(){var l=(location.pathname.split('/').filter(Boolean)[0]||'bio');function hit(e){try{navigator.sendBeacon?navigator.sendBeacon('/__hit?e='+e+'&l='+encodeURIComponent(l)):fetch('/__hit?e='+e+'&l='+encodeURIComponent(l),{keepalive:true})}catch(x){}}
 window.__hit=hit;hit('view');document.addEventListener('click',function(ev){var a=ev.target.closest&&ev.target.closest('a.btn.main');if(a)hit('click')},true);})();</script>
@@ -108,15 +117,6 @@ window.__hit=hit;hit('view');document.addEventListener('click',function(ev){var 
 
 </main>
 <script>
-(function(){
-  var b=document.getElementById('banner'),base=300,max=560,y0=null,extra=0;
-  function setH(h){b.style.height=h+'px'}
-  function reset(){b.classList.add('anim');setH(base);extra=0;setTimeout(function(){b.classList.remove('anim')},520)}
-  window.addEventListener('scroll',function(){var y=window.scrollY||0;if(y<0){b.classList.remove('anim');setH(Math.min(max,base-y*1.6))}else if(extra===0&&b.offsetHeight!==base){setH(base)}},{passive:true});
-  document.addEventListener('touchstart',function(e){y0=e.touches[0].clientY},{passive:true});
-  document.addEventListener('touchmove',function(e){if(y0===null||window.scrollY>0)return;var d=e.touches[0].clientY-y0;if(d>0){b.classList.remove('anim');extra=Math.min(max-base,d*0.9);setH(base+extra)}},{passive:true});
-  document.addEventListener('touchend',function(){y0=null;if(extra>0)reset()},{passive:true});
-})();
 (function(){
   var tag=document.getElementById('tag'),near=document.getElementById('near'),txt=document.getElementById('nearTxt');
   function miles(){return (Math.random()*4.6+1.2).toFixed(1)}
